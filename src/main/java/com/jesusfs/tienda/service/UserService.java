@@ -35,7 +35,7 @@ public class UserService {
         // Validations
         // User not exist or is already not active
         Optional<User> opUser = userRepository.findById(id);
-        if (opUser.isEmpty() || !opUser.get().getActive()) return false;
+        if (opUser.isEmpty() || !opUser.get().isActive()) return false;
 
         // Deleting user
         User user = opUser.get();

@@ -34,7 +34,7 @@ public class User {
     private String phone;
 
     @Column(name = "active")
-    private Boolean active;
+    private boolean active;
 
     public User(@Valid CreateUserDTO requestUser) {
         this.username = requestUser.username();
@@ -66,5 +66,13 @@ public class User {
             this.phone = userDTO.phone();
         }
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        return ((User) o).getId().equals(this.id);
     }
 }

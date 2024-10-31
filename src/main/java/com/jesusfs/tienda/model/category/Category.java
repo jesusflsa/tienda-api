@@ -34,4 +34,12 @@ public class Category {
             this.description = categoryDTO.description();
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        return ((Category) o).getId().equals(this.id);
+    }
 }
