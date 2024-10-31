@@ -33,13 +33,9 @@ public class UserService {
 
     public boolean deleteUser(Long id) {
         // Validations
-
-        // User not exist
+        // User not exist or is already not active
         Optional<User> opUser = userRepository.findById(id);
-        if (opUser.isEmpty()) throw new RuntimeException("User not exists.");
-
-        // User is already not active
-        if (!opUser.get().getActive()) return false;
+        if (opUser.isEmpty() || !opUser.get().getActive()) return false;
 
         // Deleting user
         User user = opUser.get();
