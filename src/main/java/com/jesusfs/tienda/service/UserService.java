@@ -19,7 +19,7 @@ public class UserService {
     public User createUser(@Valid CreateUserDTO requestUser) {
         // Validations
         // Unique username
-        Optional<User> opUser = userRepository.findByUsername(requestUser.username());
+        Optional<User> opUser = userRepository.findByUsernameIgnoreCase(requestUser.username());
         if (opUser.isPresent()) throw new RuntimeException("Username already exists. Please choose another.");
 
         // Unique phone number
@@ -55,7 +55,7 @@ public class UserService {
 
         // New username is already in use
         if (userDTO.username() != null) {
-            opUser = userRepository.findByUsername(userDTO.username());
+            opUser = userRepository.findByUsernameIgnoreCase(userDTO.username());
             if (opUser.isPresent()) throw new RuntimeException("Username is already in use. Choose another.");
         }
         // New phone is already in use
