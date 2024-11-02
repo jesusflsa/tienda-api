@@ -13,6 +13,8 @@ public record CreateProductDTO(
 
         Double price,
 
+        Double discount,
+
         String description,
 
         Double iva,

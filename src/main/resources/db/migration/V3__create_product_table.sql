@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS products (
     description VARCHAR(255),
     iva DECIMAL(4,2) DEFAULT 0,
     category_id INT NOT NULL,
+    discount DECIMAL(4,2) NOT NULL DEFAULT 0,
     active BIT NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
