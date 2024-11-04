@@ -75,6 +75,10 @@ public class Product {
             this.iva = productDTO.iva();
         }
 
+        if (productDTO.discount() != null && this.discount != productDTO.discount()) {
+            this.discount = productDTO.discount();
+        }
+
         if (category != null && !this.category.equals(category)) {
             this.category = category;
         }
