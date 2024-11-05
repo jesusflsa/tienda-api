@@ -5,16 +5,16 @@ import com.jesusfs.tienda.dto.category.CreateCategoryDTO;
 import com.jesusfs.tienda.dto.category.UpdateCategoryDTO;
 import com.jesusfs.tienda.repository.CategoryRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class CategoryService {
-    @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     public Category createCategory(@Valid CreateCategoryDTO categoryDTO) {
         // Validations

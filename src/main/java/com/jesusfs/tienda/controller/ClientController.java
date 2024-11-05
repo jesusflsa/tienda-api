@@ -6,7 +6,7 @@ import com.jesusfs.tienda.dto.client.ResponseClientDTO;
 import com.jesusfs.tienda.dto.client.UpdateClientDTO;
 import com.jesusfs.tienda.service.ClientService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
+@AllArgsConstructor
 public class ClientController {
-    @Autowired
+
     private ClientService clientService;
 
     @GetMapping

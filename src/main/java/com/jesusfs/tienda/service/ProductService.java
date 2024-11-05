@@ -7,7 +7,7 @@ import com.jesusfs.tienda.dto.product.UpdateProductDTO;
 import com.jesusfs.tienda.repository.CategoryRepository;
 import com.jesusfs.tienda.repository.ProductRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,12 +16,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ProductService {
-    @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
-    @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     public Product createProduct(@Valid CreateProductDTO productDTO) {
         // Validations

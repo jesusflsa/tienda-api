@@ -6,7 +6,7 @@ import com.jesusfs.tienda.dto.product.ResponseProductDTO;
 import com.jesusfs.tienda.dto.product.UpdateProductDTO;
 import com.jesusfs.tienda.service.ProductService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@AllArgsConstructor
 public class ProductController {
-    @Autowired
     ProductService productService;
 
     @PostMapping

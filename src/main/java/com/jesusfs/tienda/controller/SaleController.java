@@ -5,7 +5,7 @@ import com.jesusfs.tienda.dto.sale.ResponseSaleDTO;
 import com.jesusfs.tienda.model.Sale;
 import com.jesusfs.tienda.service.SaleService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sales")
+@AllArgsConstructor
 public class SaleController {
-    @Autowired
     private SaleService saleService;
 
     @PostMapping

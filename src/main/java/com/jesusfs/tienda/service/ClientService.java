@@ -5,15 +5,15 @@ import com.jesusfs.tienda.dto.client.CreateClientDTO;
 import com.jesusfs.tienda.dto.client.UpdateClientDTO;
 import com.jesusfs.tienda.repository.ClientRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ClientService {
-    @Autowired
     private ClientRepository clientRepository;
 
     public Client createClient(@Valid CreateClientDTO clientDTO) {

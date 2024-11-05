@@ -5,15 +5,15 @@ import com.jesusfs.tienda.dto.user.UpdateUserDTO;
 import com.jesusfs.tienda.model.User;
 import com.jesusfs.tienda.repository.UserRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class UserService {
-    @Autowired
     private UserRepository userRepository;
 
     public User createUser(@Valid CreateUserDTO requestUser) {

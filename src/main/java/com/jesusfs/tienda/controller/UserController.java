@@ -6,7 +6,7 @@ import com.jesusfs.tienda.dto.user.UpdateUserDTO;
 import com.jesusfs.tienda.model.User;
 import com.jesusfs.tienda.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
 
-    @Autowired
     UserService userService;
 
     @GetMapping

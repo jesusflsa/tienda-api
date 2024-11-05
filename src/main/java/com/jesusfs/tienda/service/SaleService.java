@@ -11,23 +11,20 @@ import com.jesusfs.tienda.repository.ProductRepository;
 import com.jesusfs.tienda.repository.SaleDetailRepository;
 import com.jesusfs.tienda.repository.SaleRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class SaleService {
-    @Autowired
     private SaleRepository saleRepository;
 
-    @Autowired
     private ClientRepository clientRepository;
 
-    @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
     private SaleDetailRepository saleDetailRepository;
 
     public Sale createSale(@Valid CreateSaleDTO saleDTO) {
