@@ -18,12 +18,9 @@ public class CategoryService {
 
     public Category createCategory(@Valid CreateCategoryDTO categoryDTO) {
         // Validations
-        // Category's name exists
-        Optional<Category> opCategory = categoryRepository.findByDescriptionIgnoreCase(categoryDTO.description());
-        if (opCategory.isPresent())
-            throw new RuntimeException("The category's description already exists.");
+        validateDescription(categoryDTO.description());
 
-        // Create Category
+        // Create category
         Category category = new Category(categoryDTO);
         return categoryRepository.save(category);
     }
@@ -32,47 +29,39 @@ public class CategoryService {
         return categoryRepository.findByActiveTrue();
     }
 
-    public Boolean deleteCategory(Long id) {
-        // Validations
-        // Category not exists or is already not active
-        Optional<Category> opCategory = categoryRepository.findById(id);
-        if (opCategory.isEmpty() || !opCategory.get().isActive())
-            return false;
-
-        // Deleting category
-        Category category = opCategory.get();
+    public void deleteCategory(Long id) {
+        Category category = getCategoryById(id);
         category.setActive(false);
         categoryRepository.save(category);
-        return true;
     }
 
     public Category updateCategory(Long id, @Valid UpdateCategoryDTO categoryDTO) {
         // Validations
-        // Category's description already exists
-        Optional<Category> opCategory = categoryRepository.findByDescriptionIgnoreCase(categoryDTO.description());
-        if (opCategory.isPresent())
-            throw new RuntimeException("Category's description already exists. Choose another.");
-
-        // Category not exists
-        opCategory = categoryRepository.findByIdAndActiveTrue(id);
-        if (opCategory.isEmpty())
-            throw new RuntimeException("Category not exists.");
-
+        validateDescription(id, categoryDTO.description());
 
         // Update category
-        Category category = opCategory.get();
+        Category category = getCategoryById(id);
         category.update(categoryDTO);
         return categoryRepository.save(category);
     }
 
     public Category getCategoryById(Long id) {
-        // Validations
+        if (id == null) return null;
         // Category not exists
         Optional<Category> opCategory = categoryRepository.findByIdAndActiveTrue(id);
-        if (opCategory.isEmpty())
-            throw new RuntimeException("Category not exists.");
+        if (opCategory.isEmpty()) throw new RuntimeException("Category not exists.");
 
-        // Get category
         return opCategory.get();
     }
+
+    // Validations
+    private void validateDescription(Long id, String description) {
+        Optional<Category> opCategory;
+        if (id == null) opCategory = categoryRepository.findByDescriptionIgnoreCase(description);
+        else opCategory = categoryRepository.findByDescriptionIgnoreCaseAndIdNot(description, id);
+
+        if (opCategory.isPresent()) throw new RuntimeException("Category's description already exists. Choose another.");
+    }
+
+    private void validateDescription(String description) { validateDescription(null, description); }
 }

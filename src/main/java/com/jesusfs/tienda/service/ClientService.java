@@ -18,57 +18,28 @@ public class ClientService {
 
     public Client createClient(@Valid CreateClientDTO clientDTO) {
         // Validations
-        // Unique DNI
-        Optional<Client> opClient = clientRepository.findByDni(clientDTO.dni());
-        if (opClient.isPresent())
-            throw new RuntimeException("DNI is taken. Use another.");
-        // Unique phone
-        if (clientDTO.phone() != null) {
-            opClient = clientRepository.findByPhone(clientDTO.phone());
-            if (opClient.isPresent())
-                throw new RuntimeException("Phone is taken. Use another.");
-        }
+        validateDni(clientDTO.dni());
+        validatePhone(clientDTO.phone());
+
         // Creating client
         Client client = new Client(clientDTO);
         return clientRepository.save(client);
     }
 
-    public boolean deleteClient(Long id) {
-        // Validations
-        // Client not exists or is not active
-        Optional<Client> opClient = clientRepository.findByIdAndActiveTrue(id);
-        if (opClient.isEmpty())
-            return false;
-
+    public void deleteClient(Long id) {
         // Deleting client
-        Client client = opClient.get();
+        Client client = getClientById(id);
         client.setActive(false);
         clientRepository.save(client);
-        return true;
     }
 
     public Client updateClient(Long id, @Valid UpdateClientDTO clientDTO) {
         // Validations
-        Optional<Client> opClient;
-        // DNI is taken
-        opClient = clientRepository.findByDniAndIdNot(clientDTO.dni(), id);
-        if (opClient.isPresent())
-            throw new RuntimeException("DNI is taken. Please use another.");
-
-        // Phone is taken
-        if (clientDTO.phone() != null) {
-            opClient = clientRepository.findByPhoneAndIdNot(clientDTO.phone(), id);
-            if (opClient.isPresent())
-                throw new RuntimeException("Phone is taken. Please use another.");
-        }
-
-        // Client not exists
-        opClient = clientRepository.findById(id);
-        if (opClient.isEmpty())
-            throw new RuntimeException("Client not exists");
+        validateDni(id, clientDTO.dni());
+        validatePhone(id, clientDTO.phone());
 
         // Updating client
-        Client client = opClient.get();
+        Client client = getClientById(id);
         client.update(clientDTO);
         return clientRepository.save(client);
     }
@@ -76,9 +47,8 @@ public class ClientService {
     public Client getClientById(Long id) {
         // Validations
         // Client not exists
-        Optional<Client> opClient = clientRepository.findById(id);
-        if (opClient.isEmpty())
-            throw new RuntimeException("Client not exists.");
+        Optional<Client> opClient = clientRepository.findByIdAndActiveTrue(id);
+        if (opClient.isEmpty()) throw new RuntimeException("Client not exists.");
 
         // Getting client
         return opClient.get();
@@ -87,4 +57,28 @@ public class ClientService {
     public List<Client> getClients() {
         return clientRepository.findByActiveTrue();
     }
+
+    // Validations
+    private void validateDni(Long id, String dni) {
+        Optional<Client> opClient;
+        if (id == null) {
+            opClient = clientRepository.findByDni(dni);
+        } else {
+            opClient = clientRepository.findByDniAndIdNot(dni, id);
+        }
+        if (opClient.isPresent()) throw new RuntimeException("DNI is taken. Use another.");
+    }
+
+    private void validatePhone(Long id, String phone) {
+        if (phone == null) return;
+
+        Optional<Client> opClient;
+        if (id == null) opClient = clientRepository.findByPhone(phone);
+        else opClient = clientRepository.findByPhoneAndIdNot(phone, id);
+
+        if (opClient.isPresent()) throw new RuntimeException("Phone is taken. Use another.");
+    }
+
+    private void validatePhone(String phone) { validatePhone(null, phone); }
+    private void validateDni(String dni) { validateDni(null, dni); }
 }

@@ -8,14 +8,12 @@ import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
     List<Client> findByActiveTrue();
-
     Optional<Client> findByIdAndActiveTrue(Long id);
 
     Optional<Client> findByDni(String dni);
-    Optional<Client> findByPhone(String phone);
-
-    // Validations
     Optional<Client> findByDniAndIdNot(String dni, Long id);
+
+    Optional<Client> findByPhone(String phone);
     Optional<Client> findByPhoneAndIdNot(String phone, Long id);
 
 }

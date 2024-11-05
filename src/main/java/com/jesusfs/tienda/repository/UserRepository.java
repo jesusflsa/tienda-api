@@ -9,9 +9,11 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByActiveTrue();
 
+    Optional<User> findByIdAndActiveTrue(Long id);
+
     Optional<User> findByUsernameIgnoreCase(String username);
+    Optional<User> findByUsernameIgnoreCaseAndIdNot(String username, Long id);
 
     Optional<User> findByPhone(String phone);
-
-    Optional<User> findByIdAndActiveTrue(Long id);
+    Optional<User> findByPhoneAndIdNot(String phone, Long id);
 }

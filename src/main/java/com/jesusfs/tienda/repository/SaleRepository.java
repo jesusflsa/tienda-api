@@ -9,6 +9,4 @@ import java.util.Optional;
 public interface SaleRepository extends JpaRepository<Sale, Long> {
     Optional<Sale> findByIdAndActiveTrue(Long id);
     List<Sale> findByActiveTrue();
-
-    boolean existsByIdAndActiveTrue(Long id);
 }

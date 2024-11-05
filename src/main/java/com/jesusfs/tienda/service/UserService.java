@@ -18,31 +18,19 @@ public class UserService {
 
     public User createUser(@Valid CreateUserDTO requestUser) {
         // Validations
-        // Unique username
-        Optional<User> opUser = userRepository.findByUsernameIgnoreCase(requestUser.username());
-        if (opUser.isPresent()) throw new RuntimeException("Username already exists. Please choose another.");
-
-        // Unique phone number
-        opUser = userRepository.findByPhone(requestUser.phone());
-        if (opUser.isPresent()) throw new RuntimeException("Phone already in use. Please use another.");
+        validateUsername(requestUser.username());
+        validatePhone(requestUser.phone());
 
         // Saving user
         User user = new User(requestUser);
         return userRepository.save(user);
     }
 
-    public boolean deleteUser(Long id) {
-        // Validations
-        // User not exist or is already not active
-        Optional<User> opUser = userRepository.findById(id);
-        if (opUser.isEmpty() || !opUser.get().isActive()) return false;
-
+    public void deleteUser(Long id) {
         // Deleting user
-        User user = opUser.get();
+        User user = getUserById(id);
         user.setActive(false);
         userRepository.save(user);
-
-        return true;
     }
 
     public List<User> getUsers() {
@@ -51,24 +39,11 @@ public class UserService {
 
     public User updateUser(Long id, UpdateUserDTO userDTO) {
         // Validations
-        Optional<User> opUser;
-
-        // New username is already in use
-        if (userDTO.username() != null) {
-            opUser = userRepository.findByUsernameIgnoreCase(userDTO.username());
-            if (opUser.isPresent()) throw new RuntimeException("Username is already in use. Choose another.");
-        }
-        // New phone is already in use
-        if (userDTO.phone() != null) {
-            opUser = userRepository.findByPhone(userDTO.phone());
-            if (opUser.isPresent()) throw new RuntimeException("Phone number is already in use. Choose another.");
-        }
-        // User not exist
-        opUser = userRepository.findByIdAndActiveTrue(id);
-        if (opUser.isEmpty()) throw new RuntimeException("User not exists.");
+        validateUsername(id, userDTO.username());
+        validatePhone(id, userDTO.phone());
 
         // Updating user
-        User user = opUser.get();
+        User user = getUserById(id);
         user.update(userDTO);
         return userRepository.save(user);
     }
@@ -82,4 +57,25 @@ public class UserService {
         // Getting user
         return opUser.get();
     }
+
+    // Validations
+    private void validateUsername(Long id, String username) {
+        Optional<User> opUser;
+        if (id == null) opUser = userRepository.findByUsernameIgnoreCase(username);
+        else opUser = userRepository.findByUsernameIgnoreCaseAndIdNot(username, id);
+
+        if (opUser.isPresent()) throw new RuntimeException("Username is already in use. Please choose another.");
+    }
+
+    private void validateUsername(String username) { validateUsername(null, username); }
+
+    private void validatePhone(Long id, String phone) {
+        Optional<User> opUser;
+        if (id == null) opUser = userRepository.findByPhone(phone);
+        else opUser = userRepository.findByPhoneAndIdNot(phone, id);
+
+        if (opUser.isPresent()) throw new RuntimeException("Phone is already in use. Please use another.");
+    }
+
+    private void validatePhone(String phone) { validatePhone(null, phone); }
 }

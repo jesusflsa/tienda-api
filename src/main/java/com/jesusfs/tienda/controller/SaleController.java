@@ -36,8 +36,8 @@ public class SaleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteSale(@PathVariable Long id) {
-        boolean validator = saleService.deleteSale(id);
-        return validator ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    public ResponseEntity<?> deleteSale(@PathVariable Long id) {
+        saleService.deleteSale(id);
+        return ResponseEntity.ok().build();
     }
 }
