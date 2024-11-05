@@ -1,6 +1,6 @@
 package com.jesusfs.tienda.repository;
 
-import com.jesusfs.tienda.model.product.Product;
+import com.jesusfs.tienda.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,4 +1,6 @@
-package com.jesusfs.tienda.model.sale;
+package com.jesusfs.tienda.dto.sale;
+
+import com.jesusfs.tienda.model.SaleDetail;
 
 public record ResponseSaleDetailDTO(
         String name,

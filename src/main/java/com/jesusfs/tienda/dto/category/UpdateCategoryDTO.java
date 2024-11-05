@@ -1,4 +1,4 @@
-package com.jesusfs.tienda.model.category;
+package com.jesusfs.tienda.dto.category;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

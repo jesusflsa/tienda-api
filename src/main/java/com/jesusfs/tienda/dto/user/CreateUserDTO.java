@@ -1,10 +1,18 @@
-package com.jesusfs.tienda.model.client;
+package com.jesusfs.tienda.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record CreateClientDTO(
+public record CreateUserDTO(
+        @NotNull
+        @NotBlank
+        String username,
+
+        @NotNull
+        @NotBlank
+        String password,
+
         @NotNull
         @NotBlank
         @JsonAlias("first_name")
@@ -15,11 +23,7 @@ public record CreateClientDTO(
         @JsonAlias("last_name")
         String lastName,
 
-        @NotNull
         @NotBlank
-        String dni,
-
-        String phone,
-
-        String streetAddress
-) { }
+        String phone
+) {
+}

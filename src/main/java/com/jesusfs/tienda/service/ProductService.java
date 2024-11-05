@@ -1,9 +1,9 @@
 package com.jesusfs.tienda.service;
 
-import com.jesusfs.tienda.model.category.Category;
-import com.jesusfs.tienda.model.product.CreateProductDTO;
-import com.jesusfs.tienda.model.product.Product;
-import com.jesusfs.tienda.model.product.UpdateProductDTO;
+import com.jesusfs.tienda.model.Category;
+import com.jesusfs.tienda.dto.product.CreateProductDTO;
+import com.jesusfs.tienda.model.Product;
+import com.jesusfs.tienda.dto.product.UpdateProductDTO;
 import com.jesusfs.tienda.repository.CategoryRepository;
 import com.jesusfs.tienda.repository.ProductRepository;
 import jakarta.validation.Valid;

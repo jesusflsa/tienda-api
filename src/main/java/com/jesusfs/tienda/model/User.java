@@ -1,5 +1,7 @@
-package com.jesusfs.tienda.model.user;
+package com.jesusfs.tienda.model;
 
+import com.jesusfs.tienda.dto.user.CreateUserDTO;
+import com.jesusfs.tienda.dto.user.UpdateUserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

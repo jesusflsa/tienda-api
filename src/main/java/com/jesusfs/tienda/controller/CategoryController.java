@@ -1,9 +1,9 @@
 package com.jesusfs.tienda.controller;
 
-import com.jesusfs.tienda.model.category.Category;
-import com.jesusfs.tienda.model.category.CreateCategoryDTO;
-import com.jesusfs.tienda.model.category.ResponseCategoryDTO;
-import com.jesusfs.tienda.model.category.UpdateCategoryDTO;
+import com.jesusfs.tienda.model.Category;
+import com.jesusfs.tienda.dto.category.CreateCategoryDTO;
+import com.jesusfs.tienda.dto.category.ResponseCategoryDTO;
+import com.jesusfs.tienda.dto.category.UpdateCategoryDTO;
 import com.jesusfs.tienda.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

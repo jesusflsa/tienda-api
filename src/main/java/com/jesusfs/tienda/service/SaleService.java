@@ -1,11 +1,11 @@
 package com.jesusfs.tienda.service;
 
-import com.jesusfs.tienda.model.client.Client;
-import com.jesusfs.tienda.model.product.Product;
-import com.jesusfs.tienda.model.sale.CreateSaleDTO;
-import com.jesusfs.tienda.model.sale.CreateSaleDetailDTO;
-import com.jesusfs.tienda.model.sale.Sale;
-import com.jesusfs.tienda.model.sale.SaleDetail;
+import com.jesusfs.tienda.model.Client;
+import com.jesusfs.tienda.model.Product;
+import com.jesusfs.tienda.dto.sale.CreateSaleDTO;
+import com.jesusfs.tienda.dto.sale.CreateSaleDetailDTO;
+import com.jesusfs.tienda.model.Sale;
+import com.jesusfs.tienda.model.SaleDetail;
 import com.jesusfs.tienda.repository.ClientRepository;
 import com.jesusfs.tienda.repository.ProductRepository;
 import com.jesusfs.tienda.repository.SaleDetailRepository;

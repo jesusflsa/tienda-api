@@ -1,8 +1,8 @@
 package com.jesusfs.tienda.controller;
 
-import com.jesusfs.tienda.model.sale.CreateSaleDTO;
-import com.jesusfs.tienda.model.sale.ResponseSaleDTO;
-import com.jesusfs.tienda.model.sale.Sale;
+import com.jesusfs.tienda.dto.sale.CreateSaleDTO;
+import com.jesusfs.tienda.dto.sale.ResponseSaleDTO;
+import com.jesusfs.tienda.model.Sale;
 import com.jesusfs.tienda.service.SaleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

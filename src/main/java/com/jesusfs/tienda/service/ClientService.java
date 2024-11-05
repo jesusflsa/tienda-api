@@ -1,8 +1,8 @@
 package com.jesusfs.tienda.service;
 
-import com.jesusfs.tienda.model.client.Client;
-import com.jesusfs.tienda.model.client.CreateClientDTO;
-import com.jesusfs.tienda.model.client.UpdateClientDTO;
+import com.jesusfs.tienda.model.Client;
+import com.jesusfs.tienda.dto.client.CreateClientDTO;
+import com.jesusfs.tienda.dto.client.UpdateClientDTO;
 import com.jesusfs.tienda.repository.ClientRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

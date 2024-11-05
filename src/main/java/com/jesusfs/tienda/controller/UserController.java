@@ -1,9 +1,9 @@
 package com.jesusfs.tienda.controller;
 
-import com.jesusfs.tienda.model.user.CreateUserDTO;
-import com.jesusfs.tienda.model.user.ResponseUserDTO;
-import com.jesusfs.tienda.model.user.UpdateUserDTO;
-import com.jesusfs.tienda.model.user.User;
+import com.jesusfs.tienda.dto.user.CreateUserDTO;
+import com.jesusfs.tienda.dto.user.ResponseUserDTO;
+import com.jesusfs.tienda.dto.user.UpdateUserDTO;
+import com.jesusfs.tienda.model.User;
 import com.jesusfs.tienda.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.jesusfs.tienda.model.sale;
+package com.jesusfs.tienda.dto.sale;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotNull;

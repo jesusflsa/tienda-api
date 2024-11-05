@@ -1,4 +1,6 @@
-package com.jesusfs.tienda.model.user;
+package com.jesusfs.tienda.dto.user;
+
+import com.jesusfs.tienda.model.User;
 
 public record ResponseUserDTO(
         Long id,

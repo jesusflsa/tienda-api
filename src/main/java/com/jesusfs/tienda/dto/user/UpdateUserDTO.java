@@ -1,17 +1,18 @@
-package com.jesusfs.tienda.model.client;
+package com.jesusfs.tienda.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
-public record UpdateClientDTO(
+public record UpdateUserDTO(
+        String username,
+
+        String password,
+
         @JsonAlias("first_name")
         String firstName,
 
         @JsonAlias("last_name")
         String lastName,
 
-        String dni,
-
-        String phone,
-
-        String streetAddress
-) {}
+        String phone
+) {
+}

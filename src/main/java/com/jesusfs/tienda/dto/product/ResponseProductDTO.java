@@ -1,6 +1,7 @@
-package com.jesusfs.tienda.model.product;
+package com.jesusfs.tienda.dto.product;
 
-import com.jesusfs.tienda.model.category.ResponseCategoryDTO;
+import com.jesusfs.tienda.dto.category.ResponseCategoryDTO;
+import com.jesusfs.tienda.model.Product;
 
 public record ResponseProductDTO(
         Long id,

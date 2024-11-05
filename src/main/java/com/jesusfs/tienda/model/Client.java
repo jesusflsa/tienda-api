@@ -1,5 +1,7 @@
-package com.jesusfs.tienda.model.client;
+package com.jesusfs.tienda.model;
 
+import com.jesusfs.tienda.dto.client.CreateClientDTO;
+import com.jesusfs.tienda.dto.client.UpdateClientDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

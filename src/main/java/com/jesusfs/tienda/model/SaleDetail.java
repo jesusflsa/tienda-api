@@ -1,6 +1,5 @@
-package com.jesusfs.tienda.model.sale;
+package com.jesusfs.tienda.model;
 
-import com.jesusfs.tienda.model.product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

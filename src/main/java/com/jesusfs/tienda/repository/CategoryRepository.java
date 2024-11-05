@@ -1,6 +1,6 @@
 package com.jesusfs.tienda.repository;
 
-import com.jesusfs.tienda.model.category.Category;
+import com.jesusfs.tienda.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

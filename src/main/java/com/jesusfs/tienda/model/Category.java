@@ -1,5 +1,7 @@
-package com.jesusfs.tienda.model.category;
+package com.jesusfs.tienda.model;
 
+import com.jesusfs.tienda.dto.category.CreateCategoryDTO;
+import com.jesusfs.tienda.dto.category.UpdateCategoryDTO;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

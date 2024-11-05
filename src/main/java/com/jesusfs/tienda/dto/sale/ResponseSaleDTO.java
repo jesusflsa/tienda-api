@@ -1,6 +1,7 @@
-package com.jesusfs.tienda.model.sale;
+package com.jesusfs.tienda.dto.sale;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jesusfs.tienda.model.Sale;
 
 import java.util.List;
 

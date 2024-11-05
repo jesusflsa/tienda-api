@@ -1,6 +1,7 @@
-package com.jesusfs.tienda.model.client;
+package com.jesusfs.tienda.dto.client;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.jesusfs.tienda.model.Client;
 
 public record ResponseClientDTO(
         Long id,

@@ -1,9 +1,9 @@
 package com.jesusfs.tienda.controller;
 
-import com.jesusfs.tienda.model.product.CreateProductDTO;
-import com.jesusfs.tienda.model.product.Product;
-import com.jesusfs.tienda.model.product.ResponseProductDTO;
-import com.jesusfs.tienda.model.product.UpdateProductDTO;
+import com.jesusfs.tienda.dto.product.CreateProductDTO;
+import com.jesusfs.tienda.model.Product;
+import com.jesusfs.tienda.dto.product.ResponseProductDTO;
+import com.jesusfs.tienda.dto.product.UpdateProductDTO;
 import com.jesusfs.tienda.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
