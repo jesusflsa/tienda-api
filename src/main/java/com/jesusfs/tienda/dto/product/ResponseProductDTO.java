@@ -1,6 +1,5 @@
 package com.jesusfs.tienda.dto.product;
 
-import com.jesusfs.tienda.dto.category.ResponseCategoryDTO;
 import com.jesusfs.tienda.model.Product;
 
 public record ResponseProductDTO(
@@ -11,9 +10,9 @@ public record ResponseProductDTO(
         double discount,
         String description,
         double iva,
-        ResponseCategoryDTO category
+        Long categoryId
 ) {
     public ResponseProductDTO(Product product) {
-        this(product.getId(), product.getName(), product.getStock(), product.getPrice(), product.getDiscount(), product.getDescription(), product.getIva(), new ResponseCategoryDTO(product.getCategory()));
+        this(product.getId(), product.getName(), product.getStock(), product.getPrice(), product.getDiscount(), product.getDescription(), product.getIva(), product.getCategory().getId());
     }
 }

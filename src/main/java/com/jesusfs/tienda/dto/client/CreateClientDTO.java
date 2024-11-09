@@ -1,24 +1,20 @@
 package com.jesusfs.tienda.dto.client;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public record CreateClientDTO(
-        @NotNull
-        @NotBlank
-        @JsonAlias("first_name")
+        @NotBlank(message = "First name cannot be empty.")
         String firstName,
 
-        @NotNull
-        @NotBlank
-        @JsonAlias("last_name")
+        @NotBlank(message = "Last name cannot be empty.")
         String lastName,
 
-        @NotNull
-        @NotBlank
+        @Size(min = 8, max = 8, message = "Invalid DNI.")
+        @NotBlank(message = "DNI cannot be empty.")
         String dni,
 
+        @Size(min = 7, max = 9, message = "Invalid phone.")
         String phone,
 
         String streetAddress

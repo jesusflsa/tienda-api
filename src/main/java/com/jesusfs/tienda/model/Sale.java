@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "sales")
@@ -40,9 +41,9 @@ public class Sale {
     @Column(name = "active")
     private boolean active;
 
-    public Sale(Client client, double discount) {
+    public Sale(Client client, Double discount) {
         this.client = client;
-        this.discount = discount;
+        this.discount = Optional.ofNullable(discount).orElse(0.0);;
         this.active = true;
     }
 

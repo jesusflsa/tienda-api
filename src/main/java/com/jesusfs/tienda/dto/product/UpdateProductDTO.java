@@ -1,29 +1,29 @@
 package com.jesusfs.tienda.dto.product;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.*;
 
 public record UpdateProductDTO(
-        @NotBlank
         String name,
 
-        @Positive
+        @PositiveOrZero
         Integer stock,
 
         @Positive
         Double price,
 
-        @PositiveOrZero
+        @DecimalMin(value = "0", message = "Discount must be greater than 0%")
+        @DecimalMax(value = "100", message = "Discount must be less than 100%")
         Double discount,
 
         String description,
 
-        @Positive
+        @DecimalMin(value = "0", message = "IVA must be greater than 0%")
+        @DecimalMax(value = "100", message = "IVA must be less than 100%")
         Double iva,
 
-        @JsonAlias("category_id")
+        @NotNull
+        @JsonProperty("category_id")
         Long categoryId
 ) {
 }

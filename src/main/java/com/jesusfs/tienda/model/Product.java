@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @Entity
 @Table(name = "products")
 @NoArgsConstructor
@@ -47,6 +49,7 @@ public class Product {
         this.name = productDTO.name();
         this.stock = productDTO.stock();
         this.price = productDTO.price();
+        this.discount = Optional.ofNullable(productDTO.discount()).orElse(0.0);
         this.description = productDTO.description();
         this.iva = productDTO.iva();
         this.category = category;

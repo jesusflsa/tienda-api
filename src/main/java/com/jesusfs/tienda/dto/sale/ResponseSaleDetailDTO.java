@@ -3,7 +3,7 @@ package com.jesusfs.tienda.dto.sale;
 import com.jesusfs.tienda.model.SaleDetail;
 
 public record ResponseSaleDetailDTO(
-        String name,
+        String productName,
         double price,
         double discount,
         int quantity,

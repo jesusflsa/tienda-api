@@ -1,15 +1,12 @@
 package com.jesusfs.tienda.dto.client;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.jesusfs.tienda.model.Client;
 
 public record ResponseClientDTO(
         Long id,
 
-        @JsonAlias("first_name")
         String firstName,
 
-        @JsonAlias("last_name")
         String lastName,
 
         String dni,

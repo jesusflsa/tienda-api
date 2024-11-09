@@ -1,16 +1,16 @@
 package com.jesusfs.tienda.dto.client;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.validation.constraints.Size;
 
 public record UpdateClientDTO(
-        @JsonAlias("first_name")
         String firstName,
 
-        @JsonAlias("last_name")
         String lastName,
 
+        @Size(min = 8, max = 8, message = "Invalid DNI.")
         String dni,
 
+        @Size(min = 7, max = 9, message = "Invalid phone.")
         String phone,
 
         String streetAddress

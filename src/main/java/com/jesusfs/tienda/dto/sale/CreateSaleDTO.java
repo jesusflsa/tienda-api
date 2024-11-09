@@ -1,23 +1,18 @@
 package com.jesusfs.tienda.dto.sale;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 
 public record CreateSaleDTO(
-        @NotNull
-        @Positive
-        @JsonAlias("client_id")
+        @NotNull(message = "Client ID cannot be empty.")
         Long clientId,
 
-        @NotNull
+        @NotNull(message = "Products cannot be empty.")
         List<CreateSaleDetailDTO> products,
 
-        @NotNull
-        @PositiveOrZero
+        @DecimalMin(value = "0", message = "Discount must be greater than 0%")
+        @DecimalMax(value = "100", message = "Discount must be less than 100%")
         double discount
 ) {
 }

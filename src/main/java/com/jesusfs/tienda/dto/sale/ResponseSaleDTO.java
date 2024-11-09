@@ -1,6 +1,5 @@
 package com.jesusfs.tienda.dto.sale;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jesusfs.tienda.model.Sale;
 
 import java.util.List;
@@ -8,12 +7,10 @@ import java.util.List;
 public record ResponseSaleDTO(
         Long id,
 
-        @JsonProperty("client_id")
         Long clientId,
 
         List<ResponseSaleDetailDTO> products,
 
-        @JsonProperty("sale_date")
         String saleDate,
 
         double total,
