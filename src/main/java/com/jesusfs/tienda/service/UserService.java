@@ -2,7 +2,9 @@ package com.jesusfs.tienda.service;
 
 import com.jesusfs.tienda.dto.user.CreateUserDTO;
 import com.jesusfs.tienda.dto.user.UpdateUserDTO;
+import com.jesusfs.tienda.model.Role;
 import com.jesusfs.tienda.model.User;
+import com.jesusfs.tienda.repository.RoleRepository;
 import com.jesusfs.tienda.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
 
     public User createUser(@Valid CreateUserDTO requestUser) {
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
@@ -28,6 +31,8 @@ public class UserService implements UserDetailsService {
 
         // Saving user
         User user = new User(requestUser);
+        List<Role> roles = roleRepository.findAllById(requestUser.roles());
+        user.setRoles(roles);
         user.setPassword(bcrypt.encode(requestUser.password()));
         return userRepository.save(user);
     }

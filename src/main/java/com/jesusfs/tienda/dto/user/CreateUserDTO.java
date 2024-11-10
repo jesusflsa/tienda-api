@@ -1,6 +1,9 @@
 package com.jesusfs.tienda.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
 
 public record CreateUserDTO(
         @NotBlank
@@ -16,6 +19,9 @@ public record CreateUserDTO(
         String lastName,
 
         @NotBlank
-        String phone
+        String phone,
+
+        @NotNull
+        List<Long> roles
 ) {
 }
