@@ -1,10 +1,10 @@
 package com.jesusfs.tienda.controller;
 
-import com.jesusfs.tienda.dto.user.CreateUserDTO;
-import com.jesusfs.tienda.dto.user.ResponseUserDTO;
-import com.jesusfs.tienda.dto.user.UpdateUserDTO;
-import com.jesusfs.tienda.model.User;
-import com.jesusfs.tienda.service.UserService;
+import com.jesusfs.tienda.domain.user.dto.CreateUserDTO;
+import com.jesusfs.tienda.domain.user.dto.ResponseUserDTO;
+import com.jesusfs.tienda.domain.user.dto.UpdateUserDTO;
+import com.jesusfs.tienda.domain.user.User;
+import com.jesusfs.tienda.domain.user.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package com.jesusfs.tienda.config;
 
-import com.jesusfs.tienda.service.UserService;
+import com.jesusfs.tienda.domain.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

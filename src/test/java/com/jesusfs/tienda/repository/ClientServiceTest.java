@@ -1,8 +1,9 @@
 package com.jesusfs.tienda.repository;
 
-import com.jesusfs.tienda.dto.client.CreateClientDTO;
-import com.jesusfs.tienda.model.Client;
-import com.jesusfs.tienda.service.ClientService;
+import com.jesusfs.tienda.domain.client.ClientRepository;
+import com.jesusfs.tienda.domain.client.dto.CreateClientDTO;
+import com.jesusfs.tienda.domain.client.Client;
+import com.jesusfs.tienda.domain.client.ClientService;
 
 import static org.junit.jupiter.api.Assertions.*;
 

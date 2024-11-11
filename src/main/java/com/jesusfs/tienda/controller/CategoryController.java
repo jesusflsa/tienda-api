@@ -1,10 +1,10 @@
 package com.jesusfs.tienda.controller;
 
-import com.jesusfs.tienda.model.Category;
-import com.jesusfs.tienda.dto.category.CreateCategoryDTO;
-import com.jesusfs.tienda.dto.category.ResponseCategoryDTO;
-import com.jesusfs.tienda.dto.category.UpdateCategoryDTO;
-import com.jesusfs.tienda.service.CategoryService;
+import com.jesusfs.tienda.domain.category.Category;
+import com.jesusfs.tienda.domain.category.dto.CreateCategoryDTO;
+import com.jesusfs.tienda.domain.category.dto.ResponseCategoryDTO;
+import com.jesusfs.tienda.domain.category.dto.UpdateCategoryDTO;
+import com.jesusfs.tienda.domain.category.CategoryService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
