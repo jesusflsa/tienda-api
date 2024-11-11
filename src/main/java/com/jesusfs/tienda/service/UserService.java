@@ -55,6 +55,8 @@ public class UserService implements UserDetailsService {
 
         // Updating user
         User user = getUserById(id);
+        List<Role> roles = roleRepository.findAllById(userDTO.roles());
+        user.setRoles(roles);
         user.update(userDTO);
         return userRepository.save(user);
     }

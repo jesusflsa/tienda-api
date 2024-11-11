@@ -90,11 +90,12 @@ public class User implements UserDetails {
     // Spring Security User Model
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        roles.forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName())));
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        roles.forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName().name())));
         roles.stream()
                 .flatMap(role -> role.getPermissions().stream())
-                .forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission.getName().toString())));
+                .forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission.getName().name())));
+        authorities.forEach(System.out::println);
         return authorities;
     }
 

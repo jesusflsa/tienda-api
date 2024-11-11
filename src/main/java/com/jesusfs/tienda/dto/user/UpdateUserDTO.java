@@ -1,5 +1,7 @@
 package com.jesusfs.tienda.dto.user;
 
+import java.util.List;
+
 public record UpdateUserDTO(
         String username,
 
@@ -9,6 +11,8 @@ public record UpdateUserDTO(
 
         String lastName,
 
-        String phone
+        String phone,
+
+        List<Long> roles
 ) {
 }
