@@ -1,6 +1,0 @@
-CREATE TABLE IF NOT EXISTS categories (
-    id INT NOT NULL AUTO_INCREMENT,
-    description VARCHAR(50) NOT NULL,
-    active BIT NOT NULL DEFAULT 1,
-    PRIMARY KEY (id)
-)
