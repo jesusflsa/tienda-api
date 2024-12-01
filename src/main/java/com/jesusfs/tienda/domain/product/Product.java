@@ -1,6 +1,6 @@
 package com.jesusfs.tienda.domain.product;
 
-import com.jesusfs.tienda.domain.category.Category;
+
 import com.jesusfs.tienda.domain.product.dto.CreateProductDTO;
 import com.jesusfs.tienda.domain.product.dto.UpdateProductDTO;
 import jakarta.persistence.*;
@@ -8,8 +8,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Optional;
 
 @Entity
 @Table(name = "products")
@@ -24,67 +22,25 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "stock")
-    private int stock;
-
     @Column(name = "price")
     private double price;
-
-    @Column(name = "discount")
-    private double discount;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "iva")
-    private double iva;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
-
     @Column(name = "active")
-    private boolean active;
+    private boolean active = true;
 
-    public Product(@Valid CreateProductDTO productDTO, Category category) {
+    public Product(@Valid CreateProductDTO productDTO) {
         this.name = productDTO.name();
-        this.stock = productDTO.stock();
         this.price = productDTO.price();
-        this.discount = Optional.ofNullable(productDTO.discount()).orElse(0.0);
         this.description = productDTO.description();
-        this.iva = productDTO.iva();
-        this.category = category;
-        this.active = true;
     }
 
-    public void update(@Valid UpdateProductDTO productDTO, Category category) {
-        if (productDTO.name() != null && !this.name.equals(productDTO.name())) {
-            this.name = productDTO.name();
-        }
-
-        if (productDTO.stock() != null && this.stock != productDTO.stock()) {
-            this.stock = productDTO.stock();
-        }
-
-        if (productDTO.price() != null && this.price != productDTO.price()) {
-            this.price = productDTO.price();
-        }
-
-        if (this.description == null || this.description.equals(productDTO.description())) {
-            this.description = productDTO.description();
-        }
-
-        if (productDTO.iva() != null && this.iva != productDTO.iva()) {
-            this.iva = productDTO.iva();
-        }
-
-        if (productDTO.discount() != null && this.discount != productDTO.discount()) {
-            this.discount = productDTO.discount();
-        }
-
-        if (category != null && !this.category.equals(category)) {
-            this.category = category;
-        }
+    public void update(@Valid UpdateProductDTO productDTO) {
+        this.name = productDTO.name();
+        this.price = productDTO.price();
+        this.description = productDTO.description();
     }
 
     @Override

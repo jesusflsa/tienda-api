@@ -16,16 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 @AllArgsConstructor
-@PreAuthorize("denyAll()")
+@PreAuthorize("isAuthenticated()")
 public class ProductController {
     ProductService productService;
-
-    @PostMapping
-    @PreAuthorize("hasAnyRole({'ADMIN', 'DEVELOPER', 'WORKER'})")
-    public ResponseProductDTO createProduct(@RequestBody @Valid CreateProductDTO productDTO) {
-        Product product = productService.createProduct(productDTO);
-        return new ResponseProductDTO(product);
-    }
 
     @GetMapping
     @PreAuthorize("permitAll()")
@@ -34,24 +27,29 @@ public class ProductController {
         return products.stream().map(ResponseProductDTO::new).toList();
     }
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole({'ADMIN', 'DEVELOPER', 'WORKER'})")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole({'ADMIN', 'DEVELOPER', 'WORKER'})")
-    public ResponseProductDTO updateProduct(@PathVariable Long id, @RequestBody @Valid UpdateProductDTO productDTO) {
-        Product product = productService.updateProduct(id, productDTO);
-        return new ResponseProductDTO(product);
-    }
-
     @GetMapping("/{id}")
     @PreAuthorize("permitAll()")
     public ResponseProductDTO getProductById(@PathVariable Long id) {
         Product product = productService.getProductById(id);
         return new ResponseProductDTO(product);
     }
+
+    @PostMapping
+    public ResponseProductDTO createProduct(@RequestBody @Valid CreateProductDTO productDTO) {
+        Product product = productService.createProduct(productDTO);
+        return new ResponseProductDTO(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseProductDTO updateProduct(@PathVariable Long id, @RequestBody @Valid UpdateProductDTO productDTO) {
+        Product product = productService.updateProduct(id, productDTO);
+        return new ResponseProductDTO(product);
+    }
+
 }
