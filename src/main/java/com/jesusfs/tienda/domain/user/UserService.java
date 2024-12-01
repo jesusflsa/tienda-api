@@ -2,8 +2,6 @@ package com.jesusfs.tienda.domain.user;
 
 import com.jesusfs.tienda.domain.user.dto.CreateUserDTO;
 import com.jesusfs.tienda.domain.user.dto.UpdateUserDTO;
-import com.jesusfs.tienda.domain.client.role.Role;
-import com.jesusfs.tienda.domain.client.role.RoleRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,18 +17,14 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
-    private RoleRepository roleRepository;
 
     public User createUser(@Valid CreateUserDTO requestUser) {
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         // Validations
         validateUsername(requestUser.username());
-        validatePhone(requestUser.phone());
 
         // Saving user
         User user = new User(requestUser);
-        List<Role> roles = roleRepository.findAllById(requestUser.roles());
-        user.setRoles(roles);
         user.setPassword(bcrypt.encode(requestUser.password()));
         return userRepository.save(user);
     }
@@ -49,12 +43,9 @@ public class UserService implements UserDetailsService {
     public User updateUser(Long id, UpdateUserDTO userDTO) {
         // Validations
         validateUsername(id, userDTO.username());
-        validatePhone(id, userDTO.phone());
 
         // Updating user
         User user = getUserById(id);
-        List<Role> roles = roleRepository.findAllById(userDTO.roles());
-        user.setRoles(roles);
         user.update(userDTO);
         return userRepository.save(user);
     }
@@ -80,18 +71,6 @@ public class UserService implements UserDetailsService {
 
     private void validateUsername(String username) {
         validateUsername(null, username);
-    }
-
-    private void validatePhone(Long id, String phone) {
-        Optional<User> opUser;
-        if (id == null) opUser = userRepository.findByPhone(phone);
-        else opUser = userRepository.findByPhoneAndIdNot(phone, id);
-
-        if (opUser.isPresent()) throw new RuntimeException("Phone is already in use. Please use another.");
-    }
-
-    private void validatePhone(String phone) {
-        validatePhone(null, phone);
     }
 
     // Spring Security
