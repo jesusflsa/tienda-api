@@ -7,6 +7,9 @@ import com.jesusfs.tienda.domain.product.dto.UpdateProductDTO;
 import com.jesusfs.tienda.domain.product.ProductService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +25,11 @@ public class ProductController {
 
     @GetMapping
     @PreAuthorize("permitAll()")
-    public List<ResponseProductDTO> getProducts() {
-        List<Product> products = productService.getProducts();
+    public List<ResponseProductDTO> getProducts(
+            @PageableDefault(size = 25, direction = Sort.Direction.DESC) Pageable page,
+            @RequestParam(name = "brand", required = false) String brand
+    ) {
+        List<Product> products = productService.getProducts(page, brand);
         return products.stream().map(ResponseProductDTO::new).toList();
     }
 

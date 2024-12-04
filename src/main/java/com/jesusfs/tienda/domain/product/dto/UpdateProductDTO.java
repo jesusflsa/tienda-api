@@ -8,6 +8,8 @@ public record UpdateProductDTO(
         @Positive
         Double price,
 
-        String description
+        String description,
+
+        Long brand
 ) {
 }

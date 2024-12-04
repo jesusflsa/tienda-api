@@ -32,16 +32,6 @@ public class User implements UserDetails {
     @Column(name = "active")
     private boolean active = true;
 
-    public User(@Valid CreateUserDTO requestUser) {
-        this.username = requestUser.username();
-        this.password = requestUser.password();
-    }
-
-    public void update(@Valid UpdateUserDTO userDTO) {
-        this.username = userDTO.username();
-        this.password = userDTO.password();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || this.getClass() != o.getClass()) {

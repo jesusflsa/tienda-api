@@ -18,14 +18,15 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
-    public User createUser(@Valid CreateUserDTO requestUser) {
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+    public User createUser(@Valid CreateUserDTO userDTO) {
         // Validations
-        validateUsername(requestUser.username());
+        validateUsername(userDTO.username());
 
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         // Saving user
-        User user = new User(requestUser);
-        user.setPassword(bcrypt.encode(requestUser.password()));
+        User user = new User();
+        user.setUsername(userDTO.username());
+        user.setPassword(bcrypt.encode(userDTO.password()));
         return userRepository.save(user);
     }
 
@@ -44,19 +45,17 @@ public class UserService implements UserDetailsService {
         // Validations
         validateUsername(id, userDTO.username());
 
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         // Updating user
         User user = getUserById(id);
-        user.update(userDTO);
+        user.setUsername(userDTO.username());
+        user.setPassword(bcrypt.encode(userDTO.password()));
         return userRepository.save(user);
     }
 
     public User getUserById(Long id) {
-        // Validations
-        // User not exist
         Optional<User> opUser = userRepository.findByIdAndActiveTrue(id);
         if (opUser.isEmpty()) throw new RuntimeException("User not exists.");
-
-        // Getting user
         return opUser.get();
     }
 
@@ -76,7 +75,9 @@ public class UserService implements UserDetailsService {
     // Spring Security
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsernameIgnoreCaseAndActiveTrue(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User \"" + username + "\" not exists"));
+        Optional<User> opUser = userRepository.findByUsernameIgnoreCaseAndActiveTrue(username);
+        if (opUser.isEmpty()) throw new UsernameNotFoundException("Username " + username + " not exists.");
+
+        return opUser.get();
     }
 }

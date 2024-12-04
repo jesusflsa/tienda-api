@@ -1,10 +1,8 @@
 package com.jesusfs.tienda.domain.product;
 
 
-import com.jesusfs.tienda.domain.product.dto.CreateProductDTO;
-import com.jesusfs.tienda.domain.product.dto.UpdateProductDTO;
+import com.jesusfs.tienda.domain.brand.Brand;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,20 +26,12 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
     @Column(name = "active")
     private boolean active = true;
-
-    public Product(@Valid CreateProductDTO productDTO) {
-        this.name = productDTO.name();
-        this.price = productDTO.price();
-        this.description = productDTO.description();
-    }
-
-    public void update(@Valid UpdateProductDTO productDTO) {
-        this.name = productDTO.name();
-        this.price = productDTO.price();
-        this.description = productDTO.description();
-    }
 
     @Override
     public boolean equals(Object o) {

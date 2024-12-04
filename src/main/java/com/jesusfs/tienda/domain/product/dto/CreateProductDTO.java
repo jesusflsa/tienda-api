@@ -9,6 +9,7 @@ public record CreateProductDTO(
         @Positive
         Double price,
 
-        String description
-) {
-}
+        String description,
+
+        Long brand
+) {}
