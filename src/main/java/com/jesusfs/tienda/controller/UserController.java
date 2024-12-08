@@ -1,10 +1,10 @@
 package com.jesusfs.tienda.controller;
 
+import com.jesusfs.tienda.domain.user.UserServiceImpl;
 import com.jesusfs.tienda.domain.user.dto.CreateUserDTO;
 import com.jesusfs.tienda.domain.user.dto.ResponseUserDTO;
 import com.jesusfs.tienda.domain.user.dto.UpdateUserDTO;
 import com.jesusfs.tienda.domain.user.User;
-import com.jesusfs.tienda.domain.user.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @PreAuthorize("isAuthenticated()")
 public class UserController {
-    UserService userService;
+    UserServiceImpl userService;
 
     @GetMapping
     public List<ResponseUserDTO> getUsers() {
@@ -33,7 +33,6 @@ public class UserController {
     }
 
     @PostMapping
-    @PreAuthorize("permitAll()")
     public ResponseUserDTO createUser(@RequestBody @Valid CreateUserDTO userDTO) {
         User user = userService.createUser(userDTO);
         return new ResponseUserDTO(user);
