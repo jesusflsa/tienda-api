@@ -10,6 +10,6 @@ public record ResponseProductDTO(
         String brand
 ) {
     public ResponseProductDTO(Product product) {
-        this(product.getId(), product.getName(), product.getPrice(), product.getDescription(), product.getBrand() != null ? product.getName() : null);
+        this(product.getId(), product.getName(), product.getPrice(), product.getDescription(), product.getBrand() != null ? product.getBrand().getName() : null);
     }
 }

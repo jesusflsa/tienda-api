@@ -7,13 +7,14 @@ import com.jesusfs.tienda.domain.product.dto.UpdateProductDTO;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,17 +39,27 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    @Cacheable(value = "product")
-    public List<Product> getProducts(Pageable page, String brand) {
-        List<Product> productList = null;
+    public Page<Product> getProducts(Pageable page, String brand, String query) {
+        Page<Product> productList = null;
         log.info("ProductService::getProducts execution started.");
         log.debug("ProductService::getProducts Brand ids: {}", brand);
-        if (brand == null || brand.isBlank()) {
-            productList = productRepository.findByActiveTrue(page).getContent();
+        log.debug("ProductService::getProducts Query: {}", query);
+
+        boolean hasBrands = brand != null && !brand.isBlank();
+        boolean hasQuery = query != null && !query.isBlank() && query.trim().length() > 3;
+
+        List<Long> brandIds = hasBrands ? Arrays.stream(brand.split(",")).map(Long::valueOf).toList() : Collections.emptyList();
+
+        if (hasBrands && hasQuery) {
+            productList = productRepository.searchProductsByQueryAndBrands(query, brandIds, page);
+        } else if (hasBrands) {
+            productList = productRepository.searchProductsByBrands(brandIds, page);
+        } else if (hasQuery) {
+            productList = productRepository.searchProductsByQuery(query, page);
         } else {
-            List<Long> brandIds = Arrays.stream(brand.split(",")).map(Long::valueOf).toList();
-            productList = productRepository.searchProducts(brandIds, page).getContent();
+            productList = productRepository.findByActiveTrue(page);
         }
+
         log.info("ProductService::getProducts execution ended.");
         return productList;
     }
@@ -80,7 +91,7 @@ public class ProductService {
         log.info("ProductService::getProductById execution started.");
         Optional<Product> opProduct = productRepository.findByIdAndActiveTrue(id);
         if (opProduct.isEmpty()) {
-            log.error("ProductService::getProductById ");
+            log.error("ProductService::getProductById Product not exists.");
             throw new RuntimeException("Product not exists");
         }
         log.info("ProductService::getProductById execution ended.");
