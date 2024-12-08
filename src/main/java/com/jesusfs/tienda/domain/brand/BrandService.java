@@ -3,10 +3,10 @@ package com.jesusfs.tienda.domain.brand;
 import com.jesusfs.tienda.domain.brand.dto.CreateBrandDTO;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +26,13 @@ public class BrandService {
         return opBrand.get();
     }
 
-    public Page<Brand> getBrands(Pageable page) {
-        return brandRepository.findByActiveTrue(page);
+    public List<Brand> getBrands(Pageable page, String query) {
+        if (query == null || query.isBlank()) {
+            return brandRepository.findByActiveTrue(page).getContent();
+        } else {
+            return brandRepository.searchByProductQuery(query);
+        }
+
     }
+
 }

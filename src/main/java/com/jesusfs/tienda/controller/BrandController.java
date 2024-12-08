@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/brands")
@@ -29,9 +30,12 @@ public class BrandController {
     }
 
     @GetMapping
-    public List<ResponseBrandDTO> getBrands(@PageableDefault(size = 5) Pageable page) {
-        Page<Brand> brands = brandService.getBrands(page);
-        return brands.map(ResponseBrandDTO::new).getContent();
+    public List<ResponseBrandDTO> getBrands(
+            @PageableDefault(size = 5) Pageable page,
+            @RequestParam(name = "query", required = false) String query
+            ) {
+        List<Brand> brands = brandService.getBrands(page, query);
+        return brands.stream().map(ResponseBrandDTO::new).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
