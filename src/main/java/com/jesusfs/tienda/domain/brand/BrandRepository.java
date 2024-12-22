@@ -14,6 +14,6 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
 
     Page<Brand> findByActiveTrue(Pageable page);
 
-    @Query("SELECT b FROM Brand b JOIN Product p ON p.brand.id = b.id WHERE p.name LIKE %:query% GROUP BY b.id")
+    @Query("SELECT DISTINCT b FROM Brand b JOIN Product p ON p.brand.id = b.id WHERE p.name LIKE %:query%")
     List<Brand> searchByProductQuery(String query);
 }
