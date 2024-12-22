@@ -1,22 +1,24 @@
 package com.jesusfs.tienda.domain.user;
 
-import com.jesusfs.tienda.domain.user.dto.CreateUserDTO;
-import com.jesusfs.tienda.domain.user.dto.UpdateUserDTO;
+import com.jesusfs.tienda.domain.client.Client;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 public class User implements UserDetails {
     @Id
@@ -28,6 +30,12 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     private String password;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Client client;
+
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
     @Column(name = "active")
     private boolean active = true;
@@ -43,7 +51,10 @@ public class User implements UserDetails {
     // Spring Security User Model
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        GrantedAuthority role = new SimpleGrantedAuthority("ROLE_" + this.role);
+        authorities.add(role);
+        return authorities;
     }
 
     @Override

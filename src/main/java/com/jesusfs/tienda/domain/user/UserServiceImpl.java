@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,17 +17,17 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserServiceImpl implements UserDetailsService, UserService {
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User createUser(@Valid CreateUserDTO userDTO) {
         // Validations
-        validateUsername(userDTO.username());
+        validateUsername(userDTO.email());
 
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         // Saving user
         User user = new User();
-        user.setUsername(userDTO.username());
-        user.setPassword(bcrypt.encode(userDTO.password()));
+        user.setUsername(userDTO.email());
+        user.setPassword(passwordEncoder.encode(userDTO.password()));
         return userRepository.save(user);
     }
 
@@ -49,11 +49,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         // Validations
         validateUsername(id, userDTO.username());
 
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         // Updating user
         User user = getUserById(id);
         user.setUsername(userDTO.username());
-        user.setPassword(bcrypt.encode(userDTO.password()));
+        user.setPassword(passwordEncoder.encode(userDTO.password()));
         return userRepository.save(user);
     }
 
@@ -66,11 +65,15 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     // Validations
     private void validateUsername(Long id, String username) {
-        Optional<User> opUser;
-        if (id == null) opUser = userRepository.findByUsernameIgnoreCase(username);
-        else opUser = userRepository.findByUsernameIgnoreCaseAndIdNot(username, id);
+        boolean response;
 
-        if (opUser.isPresent()) throw new RuntimeException("Username is already in use. Please choose another.");
+        if (id == null) {
+            response = userRepository.existsByUsernameIgnoreCase(username);
+        } else {
+            response = userRepository.existsByUsernameIgnoreCaseAndIdNot(username, id);
+        }
+
+        if (response) throw new RuntimeException("Username is already in use. Please choose another.");
     }
 
     private void validateUsername(String username) {
@@ -82,7 +85,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> opUser = userRepository.findByUsernameIgnoreCaseAndActiveTrue(username);
         if (opUser.isEmpty()) throw new UsernameNotFoundException("Username " + username + " not exists.");
-
         return opUser.get();
     }
 }
