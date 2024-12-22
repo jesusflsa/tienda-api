@@ -2,6 +2,8 @@ package com.jesusfs.tienda.domain.product.dto;
 
 import jakarta.validation.constraints.*;
 
+import java.util.List;
+
 public record UpdateProductDTO(
         String name,
 
@@ -10,6 +12,8 @@ public record UpdateProductDTO(
 
         String description,
 
-        Long brand
+        Long brand,
+
+        List<Long> categories
 ) {
 }

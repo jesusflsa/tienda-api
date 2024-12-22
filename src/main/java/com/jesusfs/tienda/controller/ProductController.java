@@ -15,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/products")
 @AllArgsConstructor
@@ -29,9 +27,10 @@ public class ProductController {
     public Page<ResponseProductDTO> getProducts(
             @PageableDefault(size = 25, direction = Sort.Direction.DESC) Pageable page,
             @RequestParam(name = "brand", required = false) String brand,
-            @RequestParam(name = "query", required = false) String query
+            @RequestParam(name = "query", required = false) String query,
+            @RequestParam(name = "category", required = false) String category
     ) {
-        Page<Product> products = productService.getProducts(page, brand, query);
+        Page<Product> products = productService.getProducts(page, brand, query, category);
         return products.map(ResponseProductDTO::new);
     }
 
