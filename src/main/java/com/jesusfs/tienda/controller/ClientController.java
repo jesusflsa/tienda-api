@@ -2,8 +2,8 @@ package com.jesusfs.tienda.controller;
 
 import com.jesusfs.tienda.domain.client.Client;
 import com.jesusfs.tienda.domain.client.ClientServiceImpl;
-import com.jesusfs.tienda.domain.client.dto.ResponseClientDTO;
 import com.jesusfs.tienda.domain.client.dto.CreateClientDTO;
+import com.jesusfs.tienda.services.JwtService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class ClientController {
     private ClientServiceImpl clientService;
+    private JwtService jwtService;
 
     @PostMapping
-    public ResponseClientDTO registerClient(@Valid @RequestBody CreateClientDTO clientDTO) {
+    public String registerClient(@Valid @RequestBody CreateClientDTO clientDTO) {
         Client client = clientService.createClient(clientDTO);
-        return new ResponseClientDTO(client);
+        return jwtService.createToken(client);
     }
 }

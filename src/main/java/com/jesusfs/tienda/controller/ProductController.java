@@ -42,18 +42,21 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseProductDTO createProduct(@RequestBody @Valid CreateProductDTO productDTO) {
         Product product = productService.createProduct(productDTO);
         return new ResponseProductDTO(product);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseProductDTO updateProduct(@PathVariable Long id, @RequestBody @Valid UpdateProductDTO productDTO) {
         Product product = productService.updateProduct(id, productDTO);
         return new ResponseProductDTO(product);
