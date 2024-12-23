@@ -1,7 +1,7 @@
 package com.jesusfs.tienda.domain.order;
 
 import com.jesusfs.tienda.domain.product.Product;
-import com.jesusfs.tienda.domain.size.Size;
+import com.jesusfs.tienda.domain.product.Size;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

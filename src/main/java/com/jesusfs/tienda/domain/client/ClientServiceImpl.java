@@ -1,15 +1,14 @@
 package com.jesusfs.tienda.domain.client;
 
 import com.jesusfs.tienda.domain.client.dto.CreateClientDTO;
-import com.jesusfs.tienda.domain.user.Role;
-import com.jesusfs.tienda.domain.user.User;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
+    private PasswordEncoder passwordEncoder;
     private ClientRepository clientRepository;
 
     @Override
@@ -19,19 +18,7 @@ public class ClientServiceImpl implements ClientService {
         if (clientRepository.existsByEmailIgnoreCase(clientDTO.email()))
             throw new RuntimeException("This email is taken.");
 
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-
-        User user = User.builder()
-                .password(bcrypt.encode(clientDTO.password()))
-                .role(Role.CLIENT)
-                .active(true)
-                .build();
-
-        Client client = Client.builder()
-                .fullName(clientDTO.fullName())
-                .email(clientDTO.email())
-                .user(user)
-                .build();
+        Client client = new Client(clientDTO.email(), passwordEncoder.encode(clientDTO.password()), clientDTO.fullName());
 
         return clientRepository.save(client);
     }

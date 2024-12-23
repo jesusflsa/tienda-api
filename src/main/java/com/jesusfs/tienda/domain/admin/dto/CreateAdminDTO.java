@@ -1,11 +1,9 @@
-package com.jesusfs.tienda.domain.user.dto;
+package com.jesusfs.tienda.domain.admin.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public record CreateUserDTO(
+public record CreateAdminDTO(
         @NotBlank
-        @Email
         String username,
 
         @NotBlank

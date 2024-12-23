@@ -1,12 +1,12 @@
-package com.jesusfs.tienda.domain.user.dto;
+package com.jesusfs.tienda.domain.admin.dto;
 
-import com.jesusfs.tienda.domain.user.User;
+import com.jesusfs.tienda.domain.admin.Admin;
 
-public record ResponseUserDTO(
+public record ResponseAdminDTO(
         Long id,
         String username
 ) {
-    public ResponseUserDTO(User user) {
-        this(user.getId(), user.getUsername());
+    public ResponseAdminDTO(Admin admin) {
+        this(admin.getId(), admin.getUsername());
     }
 }

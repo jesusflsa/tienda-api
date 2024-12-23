@@ -5,10 +5,7 @@ import com.jesusfs.tienda.domain.cart.Cart;
 import com.jesusfs.tienda.domain.order.Order;
 import com.jesusfs.tienda.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -18,16 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Data
-public class Client {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+@DiscriminatorValue("CLIENT")
+@EqualsAndHashCode(callSuper = true)
+@PrimaryKeyJoinColumn(name = "id")
+public class Client extends User {
     @Column(name = "full_name")
     private String fullName;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "phone")
     private String phone;
@@ -45,7 +38,8 @@ public class Client {
     @OneToOne(mappedBy = "client", fetch = FetchType.LAZY)
     private Cart cart;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    public Client(String username, String password, String fullName) {
+        super(username, password);
+        this.fullName = fullName;
+    }
 }

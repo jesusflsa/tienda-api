@@ -1,7 +1,7 @@
 package com.jesusfs.tienda.controller;
 
 import com.jesusfs.tienda.domain.user.User;
-import com.jesusfs.tienda.domain.user.dto.LoginUserDTO;
+import com.jesusfs.tienda.domain.admin.dto.LoginAdminDTO;
 import com.jesusfs.tienda.services.JwtService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class AuthController {
     private JwtService jwtService;
 
     @PostMapping("/login")
-    public String login(@Valid @RequestBody LoginUserDTO userDTO) {
+    public String login(@Valid @RequestBody LoginAdminDTO userDTO) {
         Authentication auth = new UsernamePasswordAuthenticationToken(userDTO.username(), userDTO.password());
         Authentication authUser = authenticationManager.authenticate(auth);
         User user = (User) authUser.getPrincipal();

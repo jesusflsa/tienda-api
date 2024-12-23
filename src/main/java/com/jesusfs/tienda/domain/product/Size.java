@@ -1,4 +1,4 @@
-package com.jesusfs.tienda.domain.size;
+package com.jesusfs.tienda.domain.product;
 
 public enum Size {
     XS,

@@ -1,6 +1,6 @@
-package com.jesusfs.tienda.domain.user.dto;
+package com.jesusfs.tienda.domain.admin.dto;
 
-public record LoginUserDTO(
+public record LoginAdminDTO(
         String username,
         String password
 ) {

@@ -7,6 +7,6 @@ public record ResponseClientDTO(
         String email
 ) {
     public ResponseClientDTO(Client client) {
-        this(client.getFullName(), client.getEmail());
+        this(client.getFullName(), client.getUsername());
     }
 }

@@ -1,8 +1,7 @@
-package com.jesusfs.tienda.domain.user.dto;
+package com.jesusfs.tienda.domain.admin.dto;
 
-public record UpdateUserDTO(
+public record UpdateAdminDTO(
         String username,
-
         String password
 ) {
 }
