@@ -57,6 +57,10 @@ class ClientControllerTest {
 
         Mockito.when(clientService.createClient(clientDTO)).thenReturn(client);
         mockMvc.perform(post("/clients")
+<<<<<<< HEAD
+=======
+                .header("Authorization")
+>>>>>>> 6aa61c70d9dd83c8b64a21124958a22c812adb5b
                 .contentType(MediaType.APPLICATION_JSON).content("""
                 {
                     "full_name": "jesus flores",
