@@ -39,14 +39,6 @@ public abstract class User implements UserDetails {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || this.getClass() != o.getClass()) {
-            return false;
-        }
-        return ((User) o).getId().equals(this.id);
-    }
-
     // Spring Security User Model
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
